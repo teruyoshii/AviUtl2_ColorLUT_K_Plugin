@@ -1,0 +1,2 @@
+# AviUtl2_ColorLUT_K_Plugin
+AviUtl2にLUTファイルを扱えるようにするプラグイン
