@@ -28,7 +28,7 @@ constinit LOG_HANDLE *logger = nullptr;
 ColorLUT lut{};
 
 auto file = FILTER_ITEM_FILE(L"LUT File", L"", L"Cube LUT File (*.cube)\0*.cube\0");
-auto reload = FILTER_ITEM_CHECK(L"Reload", false);
+auto reload = FILTER_ITEM_BUTTON(L"Reload LUT", []([[maybe_unused]] EDIT_SECTION *edit) { lut.reload(file.value); });
 auto group_comp = FILTER_ITEM_GROUP(L"Compositing", false);
 auto opacity = FILTER_ITEM_TRACK(L"Opacity", 100.0, 0.0, 100.0, 0.01);
 constinit void *items[] = {&file, &reload, &group_comp, &opacity, nullptr};
@@ -37,9 +37,6 @@ bool
 func_proc_video(FILTER_PROC_VIDEO *video) {
     if (std::wcscmp(file.value, L"") == 0)
         return true;
-
-    if (reload.value)
-        lut.reload(file.value);
 
     try {
         auto src = video->get_image_texture2d();
@@ -87,7 +84,7 @@ InitializeLogger(LOG_HANDLE *l) {
 
 bool
 InitializePlugin(DWORD v) {
-    return v >= 2002500;
+    return v >= 2002600;
 }
 
 void

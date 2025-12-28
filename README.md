@@ -11,10 +11,10 @@ AviUtl2にLUTファイルを扱えるようにするプラグイン
 
 ## 動作確認
 
-- [AviUtl ExEdit2 beta25](https://spring-fragrance.mints.ne.jp/aviutl/)
+- [AviUtl ExEdit2 beta26](https://spring-fragrance.mints.ne.jp/aviutl/)
 
 > [!CAUTION]
-> beta25以降必須．
+> beta26以降必須．
 
 ## 導入・削除・更新
 
@@ -44,7 +44,7 @@ AviUtl2にLUTファイルを扱えるようにするプラグイン
 
 Cube LUT Specification Version 1.0に準拠したLUTファイル (.cube) を読み込み，画像の色を変える．
 
-読み込んだLUTはファイルパスをキーとしてキャッシュを取るので，LUTに変更があった場合は`Reload`を有効にするか本体の`キャッシュを破棄`をクリックして再読み込みを行うこと．
+読み込んだLUTはファイルパスをキーとしてキャッシュを取るので，LUTに変更があった場合は`Reload LUT`または本体の`キャッシュを破棄`をクリックして再読み込みを行うこと．
 
 本体の`キャッシュを破棄`を行った場合，すべてのLUTファイルに対してキャッシュ破棄を行う．
 
@@ -54,7 +54,7 @@ Cube LUT Specification Version 1.0に準拠したLUTファイル (.cube) を読�
 
 LUTファイルを指定する．
 
-#### Reload
+#### Reload LUT
 
 `LUT File`で指定したLUTを再読み込みする．
 
@@ -100,6 +100,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 ## Change Log
+
+- **v1.0.1**
+  - リロード機能をボタン化
 
 - **v1.0.0**
   - Release
