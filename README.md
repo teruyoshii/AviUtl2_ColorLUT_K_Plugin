@@ -4,6 +4,7 @@
 https://github.com/user-attachments/assets/9dfe4d02-296a-4e7b-9e62-dbf66e8b673a
 
 AviUtl2でLUTファイルを扱えるようにする ColorLUT_Kへのインターフェーススクリプト
+
 LUTの切り替えをトラックバーから行えるようになります
 
 [ColorLUT_Kのダウンロードはこちらから](https://github.com/korarei/AviUtl2_ColorLUT_K_Plugin/releases)
