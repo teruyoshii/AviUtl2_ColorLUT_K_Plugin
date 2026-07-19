@@ -4,16 +4,49 @@
 --information:ColorLUT_K改
 --label:色調整
 --file@name:基準LUTファイル,""
---track@num:ﾌｧｲﾙ選択,0,200,0,1
---track@opacity:Opacity,0,100,100,0.01
-if name == nil then
+--track@num:ﾌｧｲﾙ選択,0,200,0,1 -- 足りない場合は最大値(デフォルトでは200)を増やしてください
+--select@blend_mode:合成モード=0,通常=0,ディザ合成=1,比較(暗)=2,乗算=3,焼き込みカラー=4,焼き込みリニア=5,カラー比較(暗)=6,比較(明)=7,スクリーン=8,覆い焼きカラー=9,覆い焼きリニア(加算)=10,カラー比較(明)=11,オーバーレイ=12,ソフトライト=13,ハードライト=14,リニアライト=15,ビビッドライト=16,ピンライト=17,ハードミックス=18,差分=19,除外=20,減算=21,除算=22,色相=23,彩度=24,色彩=25,輝度=26
+--track@opacity:適用度,0,100,100,0.01
+--check@Clamp:飽和する,0
+
+local BM = {
+  "Normal",              -- 通常
+  "Dissolve",            -- ディザ合成
+  "Darken",              -- 比較(暗)
+  "Multiply",            -- 乗算
+  "Color Burn",          -- 焼き込みカラー
+  "Linear Burn",         -- 焼き込みリニア
+  "Darken Color",        -- カラー比較(暗)
+  "Lighten",             -- 比較(明)
+  "Screen",              -- スクリーン
+  "Color Dodge",         -- 覆い焼きカラー
+  "Linear Dodge (Add)",  -- 覆い焼きリニア(加算)
+  "Lighter Color",       -- カラー比較(明)
+  "Overlay",             -- オーバーレイ
+  "Soft Light",          -- ソフトライト
+  "Hard Light",          -- ハードライト
+  "Linear Light",        -- リニアライト
+  "Vivid Light",         -- ビビッドライト
+  "Pin Light",           -- ピンライト
+  "Hard Mix",            -- ハードミックス
+  "Difference",          -- 差分
+  "Exclusion",           -- 除外
+  "Subtract",            -- 減算
+  "Divide",              -- 除算
+  "Hue",                 -- 色相
+  "Saturation",          -- 彩度
+  "Color",               -- カラー
+  "Luminosity"           -- 輝度
+}
+
+if name == nil then 
   debug_print("LUT file name is not set.")
   return
 end
 if prev_name ~= name then
-  local lut_path = obj.getinfo("script_path") .. "\\LUT\\"
+  local lut_path = ".\\Data\\Script\\LUT\\"
   local lut_file = io.popen('dir "' .. lut_path .. '*.cube" /b')
-  local file, msg = io.open(obj.getinfo("script_path") .. "\\LUT\\_ColorLUT_cubeList.txt", "w+")
+  local file, msg = io.open(".\\Data\\Script\\LUT\\_ColorLUT_cubeList.txt", "w+")
   if file then
     for filename in lut_file:lines() do
       file:write('"' .. filename .. '"\n')
@@ -28,7 +61,7 @@ if prev_name ~= name then
   prev_name = name
 end
 if LUTFiles == nil then
-  local file, msg = io.open(obj.getinfo("script_path") .. "\\LUT\\_ColorLUT_cubeList.txt", "r")
+  local file, msg = io.open(".\\Data\\Script\\LUT\\_ColorLUT_cubeList.txt", "r")
   if file then
     -- debug_print("LUT list file opened successfully.")
     LUTFiles = {}
@@ -62,4 +95,4 @@ if prev_target ~= target then
   debug_print("Using LUT: " .. LUTFiles[(selectedLUTIndex + num - 1) % #LUTFiles + 1])
   prev_target = target
 end
-obj.effect("ColorLUT_K", "LUT File", target, "Opacity", opacity)
+obj.effect("ColorLUT_K", "LUT File", target, "Compositing::Blend Mode", BM[blend_mode+1], "Compositing::Opacity", opacity, "Compositing::Clamp", Clamp)
