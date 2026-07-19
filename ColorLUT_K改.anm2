@@ -44,9 +44,9 @@ if name == nil then
   return
 end
 if prev_name ~= name then
-  local lut_path = ".\\Data\\Script\\LUT\\"
+  local lut_path = obj.getinfo("script_path") .. "\\LUT\\"
   local lut_file = io.popen('dir "' .. lut_path .. '*.cube" /b')
-  local file, msg = io.open(".\\Data\\Script\\LUT\\_ColorLUT_cubeList.txt", "w+")
+  local file, msg = io.open(obj.getinfo("script_path") .. "\\LUT\\_ColorLUT_cubeList.txt", "w+")
   if file then
     for filename in lut_file:lines() do
       file:write('"' .. filename .. '"\n')
@@ -61,7 +61,7 @@ if prev_name ~= name then
   prev_name = name
 end
 if LUTFiles == nil then
-  local file, msg = io.open(".\\Data\\Script\\LUT\\_ColorLUT_cubeList.txt", "r")
+  local file, msg = io.open(obj.getinfo("script_path") .. "\\LUT\\_ColorLUT_cubeList.txt", "r")
   if file then
     -- debug_print("LUT list file opened successfully.")
     LUTFiles = {}
