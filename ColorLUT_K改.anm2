@@ -91,8 +91,12 @@ if selectedLUTName then
 end
 
 local target = pathToLUTs .. LUTFiles[(selectedLUTIndex + num - 1) % #LUTFiles + 1]
-if prev_target ~= target then
+if prev_target == nil then
+  prev_target = {}
+end
+if prev_target[obj.effect_id] ~= target then
   debug_print("Using LUT: " .. LUTFiles[(selectedLUTIndex + num - 1) % #LUTFiles + 1])
-  prev_target = target
+  prev_target[obj.effect_id] = target
 end
 obj.effect("ColorLUT_K", "LUT File", target, "Compositing::Blend Mode", BM[blend_mode+1], "Compositing::Opacity", opacity, "Compositing::Clamp", Clamp)
+
